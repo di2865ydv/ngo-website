@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RootBridge — Empowering Communities</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --earth: #8B5E3C;
+    --forest: #2D5016;
+    --sage: #7A9E6E;
+    --gold: #C9A84C;
+    --charcoal: #1C1C1C;
+    --warm-white: #FDFAF5;
+    --muted: #6B6560;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(253,250,245,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(139,94,60,0.12);
+    animation: slideDown 0.6s ease both;
+  }
+
+  @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900;
+    color: var(--forest);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--gold); }
+
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav a {
+    text-decoration: none; font-size: 0.88rem; font-weight: 500;
+    color: var(--charcoal); letter-spacing: 0.04em; text-transform: uppercase;
+    position: relative; transition: color 0.3s;
+  }
+  nav a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1.5px; background: var(--gold); transform: scaleX(0);
+    transition: transform 0.3s; transform-origin: left;
+  }
+  nav a:hover { color: var(--forest); }
+  nav a:hover::after { transform: scaleX(1); }
+
+  .nav-donate {
+    background: var(--forest); color: var(--cream) !important;
+    padding: 0.6rem 1.4rem; border-radius: 2px;
+    font-weight: 600 !important;
+  }
+  .nav-donate::after { display: none; }
+  .nav-donate:hover { background: var(--earth) !important; }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    background: var(--cream);
+    position: relative; overflow: hidden;
+  }
+
+  #home::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(122,158,110,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  #home::after {
+    content: '';
+    position: absolute; bottom: -100px; left: 30%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--earth);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.3s both;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 28px; height: 2px; background: var(--gold);
+  }
+
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    font-weight: 900; line-height: 1.08;
+    color: var(--forest);
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.8s 0.5s both;
+  }
+  .hero-h1 em { font-style: italic; color: var(--earth); }
+
+  .hero-desc {
+    font-size: 1.1rem; line-height: 1.75;
+    color: var(--muted); max-width: 460px;
+    margin-bottom: 2.8rem;
+    animation: fadeUp 0.8s 0.7s both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.9s both;
+  }
+
+  .btn-primary {
+    background: var(--forest); color: var(--cream);
+    padding: 1rem 2.2rem; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    border-radius: 2px; text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--earth); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent; color: var(--forest);
+    padding: 1rem 2.2rem; border: 1.5px solid var(--forest); cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    border-radius: 2px; text-decoration: none;
+    transition: all 0.3s; display: inline-block;
+  }
+  .btn-outline:hover { background: var(--forest); color: var(--cream); }
+
+  .hero-visual {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; gap: 1rem;
+    animation: fadeLeft 1s 0.4s both;
+  }
+
+  @keyframes fadeLeft { from { transform: translateX(60px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  .hero-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+
+  .stat-card {
+    background: white; border-radius: 8px; padding: 1.6rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    border-left: 3px solid var(--gold);
+  }
+  .stat-card:nth-child(2) { border-left-color: var(--sage); margin-top: 2rem; }
+  .stat-card:nth-child(3) { border-left-color: var(--earth); }
+  .stat-card:nth-child(4) { border-left-color: var(--forest); margin-top: -2rem; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem; font-weight: 900;
+    color: var(--forest); line-height: 1;
+  }
+  .stat-label { font-size: 0.82rem; color: var(--muted); margin-top: 0.3rem; font-weight: 500; }
+
+  @keyframes fadeUp { from { transform: translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  /* ── STATS BANNER ── */
+  .stats-banner {
+    background: var(--forest);
+    padding: 2.5rem 4rem;
+    display: flex; align-items: center; justify-content: space-around;
+    gap: 2rem; flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; color: var(--cream); }
+  .stat-item .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem; font-weight: 900; color: var(--gold);
+  }
+  .stat-item .lbl { font-size: 0.85rem; opacity: 0.8; margin-top: 0.2rem; letter-spacing: 0.05em; }
+
+  /* ── SECTIONS SHARED ── */
+  section { padding: 6rem 4rem; }
+
+  .section-eyebrow {
+    font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--earth);
+    display: flex; align-items: center; gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .section-eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--gold); }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900; line-height: 1.15;
+    color: var(--forest); margin-bottom: 1.2rem;
+  }
+
+  .section-sub {
+    font-size: 1.05rem; line-height: 1.75;
+    color: var(--muted); max-width: 560px;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--warm-white);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-img-block {
+    width: 100%; aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--sage) 0%, var(--forest) 100%);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .about-img-block::before {
+    content: '🌱';
+    font-size: 8rem;
+    opacity: 0.25;
+    position: absolute;
+  }
+
+  .about-overlay {
+    position: absolute; bottom: -1.5rem; right: -1.5rem;
+    background: var(--gold); color: var(--forest);
+    padding: 1.6rem 2rem;
+    border-radius: 4px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    max-width: 200px; line-height: 1.3;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  .about-overlay span { display: block; font-family: 'DM Sans',sans-serif; font-size: 0.78rem; font-weight: 400; margin-top: 0.3rem; }
+
+  .about-text { padding-right: 2rem; }
+
+  .values-list {
+    list-style: none; margin-top: 2.5rem;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .values-list li {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--cream); border-radius: 4px;
+    border-left: 2px solid var(--sage);
+    font-size: 0.95rem; line-height: 1.5;
+    color: var(--charcoal);
+  }
+  .values-list li .icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ── SERVICES ── */
+  #services {
+    background: var(--cream);
+  }
+
+  .services-header {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-bottom: 4rem; align-items: end;
+  }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: white; border-radius: 6px;
+    padding: 2.2rem; position: relative; overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .service-card:nth-child(1)::before { background: var(--gold); }
+  .service-card:nth-child(2)::before { background: var(--sage); }
+  .service-card:nth-child(3)::before { background: var(--earth); }
+  .service-card:nth-child(4)::before { background: var(--forest); }
+  .service-card:nth-child(5)::before { background: var(--gold); }
+  .service-card:nth-child(6)::before { background: var(--sage); }
+
+  .service-icon {
+    font-size: 2.2rem; margin-bottom: 1.2rem; display: block;
+  }
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    color: var(--forest); margin-bottom: 0.8rem;
+  }
+  .service-desc {
+    font-size: 0.9rem; line-height: 1.7; color: var(--muted);
+  }
+  .service-tag {
+    display: inline-block; margin-top: 1.2rem;
+    font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--earth);
+    border: 1px solid var(--earth); padding: 0.2rem 0.6rem; border-radius: 2px;
+  }
+
+  /* ── IMPACT ── */
+  #impact {
+    background: var(--forest);
+    color: var(--cream);
+    position: relative; overflow: hidden;
+  }
+  #impact::before {
+    content: ''; position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  #impact .section-title { color: var(--cream); }
+  #impact .section-eyebrow { color: var(--gold); }
+  #impact .section-eyebrow::before { background: var(--gold); }
+
+  .impact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-top: 4rem; align-items: center;
+  }
+
+  .impact-text .section-sub { color: rgba(245,240,232,0.8); max-width: 100%; }
+
+  .impact-stories {
+    display: flex; flex-direction: column; gap: 1.2rem;
+  }
+
+  .story-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px; padding: 1.5rem;
+    transition: background 0.3s;
+  }
+  .story-card:hover { background: rgba(255,255,255,0.12); }
+
+  .story-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-style: italic;
+    color: var(--cream); line-height: 1.7;
+    margin-bottom: 0.8rem;
+  }
+  .story-attr {
+    font-size: 0.8rem; color: var(--gold); font-weight: 600;
+  }
+
+  .impact-bar-chart { margin-top: 2.5rem; }
+  .bar-item { margin-bottom: 1.2rem; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 0.85rem; color: rgba(245,240,232,0.9); margin-bottom: 0.5rem; }
+  .bar-track { background: rgba(255,255,255,0.1); border-radius: 2px; height: 8px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; background: var(--gold); animation: barGrow 1.5s ease both; }
+  .bar-fill.sage { background: var(--sage); animation-delay: 0.2s; }
+  .bar-fill.earth { background: #C4885A; animation-delay: 0.4s; }
+
+  @keyframes barGrow { from { width: 0 !important; } }
+
+  /* ── TEAM ── */
+  #team { background: var(--warm-white); }
+
+  .team-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2rem; margin-top: 3rem;
+  }
+
+  .team-card {
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  .team-card:hover { transform: translateY(-4px); }
+
+  .team-avatar {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.4rem;
+    position: relative;
+  }
+  .team-card:nth-child(1) .team-avatar { background: linear-gradient(135deg, #7A9E6E, #2D5016); }
+  .team-card:nth-child(2) .team-avatar { background: linear-gradient(135deg, #C9A84C, #8B5E3C); }
+  .team-card:nth-child(3) .team-avatar { background: linear-gradient(135deg, #8B5E3C, #4A3020); }
+  .team-card:nth-child(4) .team-avatar { background: linear-gradient(135deg, #2D5016, #7A9E6E); }
+
+  .team-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700; color: var(--forest);
+    margin-bottom: 0.3rem;
+  }
+  .team-role { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.8rem; }
+  .team-bio { font-size: 0.88rem; line-height: 1.6; color: var(--charcoal); }
+
+  /* ── GET INVOLVED ── */
+  #contact {
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+
+  .get-involved-cards {
+    display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem;
+  }
+
+  .involve-card {
+    display: flex; align-items: flex-start; gap: 1.2rem;
+    background: white; padding: 1.4rem; border-radius: 4px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: box-shadow 0.3s;
+  }
+  .involve-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
+  .involve-card .icon { font-size: 1.8rem; flex-shrink: 0; }
+  .involve-card h4 { font-size: 1rem; font-weight: 600; color: var(--forest); margin-bottom: 0.3rem; }
+  .involve-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+
+  .contact-form { background: white; padding: 2.5rem; border-radius: 6px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .contact-form h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--forest); margin-bottom: 1.5rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.4rem; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.85rem 1rem;
+    border: 1.5px solid #E5E0D8; border-radius: 4px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    color: var(--charcoal); background: var(--warm-white);
+    transition: border-color 0.3s; outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--forest); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-submit { width: 100%; margin-top: 0.5rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    color: rgba(245,240,232,0.8);
+    padding: 4rem 4rem 2rem;
+  }
+
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900;
+    color: var(--cream); margin-bottom: 1rem;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-desc { font-size: 0.88rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .footer-socials { display: flex; gap: 0.8rem; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; cursor: pointer; transition: all 0.3s;
+  }
+  .social-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--charcoal); }
+
+  .footer-col h5 {
+    font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gold); margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col a { text-decoration: none; color: rgba(245,240,232,0.7); font-size: 0.88rem; transition: color 0.3s; }
+  .footer-col a:hover { color: var(--cream); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.82rem; color: rgba(245,240,232,0.4);
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1rem; }
+    #home { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+    .hero-visual { display: none; }
+    section { padding: 4rem 1.5rem; }
+    #about, #contact { grid-template-columns: 1fr; }
+    .about-visual { display: none; }
+    .services-header { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .impact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .stats-banner { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Root<span>Bridge</span></div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Programs</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact" class="nav-donate">Get Involved</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Est. 2012 · Registered NGO</div>
+    <h1 class="hero-h1">Building Bridges,<br><em>Changing Lives</em></h1>
+    <p class="hero-desc">RootBridge works at the intersection of education, health, and livelihood to create lasting change in underserved communities across India.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Our Programs</a>
+      <a href="#contact" class="btn-outline">Volunteer With Us</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-cards">
+      <div class="stat-card">
+        <div class="stat-num">48K+</div>
+        <div class="stat-label">Lives Impacted Directly</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">120</div>
+        <div class="stat-label">Villages Reached</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Years of Service</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">92%</div>
+        <div class="stat-label">Program Success Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BANNER -->
+<div class="stats-banner">
+  <div class="stat-item">
+    <div class="num">₹4.2 Cr</div>
+    <div class="lbl">Funds Mobilised in 2024</div>
+  </div>
+  <div class="stat-item">
+    <div class="num">350+</div>
+    <div class="lbl">Active Volunteers</div>
+  </div>
+  <div class="stat-item">
+    <div class="num">18</div>
+    <div class="lbl">Corporate Partners</div>
+  </div>
+  <div class="stat-item">
+    <div class="num">6</div>
+    <div class="lbl">States of Operation</div>
+  </div>
+  <div class="stat-item">
+    <div class="num">3</div>
+    <div class="lbl">National Awards</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-img-block">
+      <span style="color:white;font-size:5rem;z-index:1;position:relative;">🌿</span>
+    </div>
+    <div class="about-overlay">
+      "Every root we strengthen grows into a bridge for tomorrow."
+      <span>— Founder's Vision</span>
+    </div>
+  </div>
+  <div class="about-text">
+    <div class="section-eyebrow reveal">Our Story</div>
+    <h2 class="section-title reveal">Community-Led,<br>Impact-Driven</h2>
+    <p class="section-sub reveal">Founded in 2012 by a group of grassroots social workers, RootBridge was born from a simple belief: that lasting change only happens when communities lead their own transformation. We work as facilitators, not saviours.</p>
+    <ul class="values-list reveal">
+      <li><span class="icon">🤝</span> <div><strong>Community Ownership</strong> — Programs are co-designed with local leaders and beneficiaries to ensure cultural alignment and long-term sustainability.</div></li>
+      <li><span class="icon">📊</span> <div><strong>Evidence-Based Action</strong> — Every initiative is measured, evaluated, and refined using real-world data and community feedback loops.</div></li>
+      <li><span class="icon">🌍</span> <div><strong>Systemic Change</strong> — We address root causes — not symptoms — by engaging policy, infrastructure, and behaviour together.</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SERVICES / PROGRAMS -->
+<section id="services">
+  <div class="services-header">
+    <div>
+      <div class="section-eyebrow reveal">What We Do</div>
+      <h2 class="section-title reveal">Six Pillars of<br>Transformation</h2>
+    </div>
+    <p class="section-sub reveal" style="align-self: end;">Each program is deeply localised, measurable, and built to outlast our direct involvement — creating communities that thrive independently.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-icon">📚</span>
+      <div class="service-name">Quality Education</div>
+      <p class="service-desc">Running 24 learning centres in rural areas, offering remedial classes, digital literacy, and scholarship support to children and first-generation learners.</p>
+      <span class="service-tag">8,200 students</span>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-icon">🏥</span>
+      <div class="service-name">Rural Health</div>
+      <p class="service-desc">Mobile health clinics, maternal care programs, and community health worker training to bridge the last-mile healthcare gap in underserved areas.</p>
+      <span class="service-tag">30+ villages</span>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <span class="service-icon">💼</span>
+      <div class="service-name">Livelihood Skills</div>
+      <p class="service-desc">Vocational training, micro-enterprise support, and financial literacy workshops that create sustainable income for marginalised youth and women.</p>
+      <span class="service-tag">3,400 trained</span>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-icon">🌾</span>
+      <div class="service-name">Sustainable Farming</div>
+      <p class="service-desc">Promoting regenerative agriculture, water conservation, and organic farming techniques to improve food security and farmer income.</p>
+      <span class="service-tag">1,100 farmers</span>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-icon">♀️</span>
+      <div class="service-name">Women Empowerment</div>
+      <p class="service-desc">Self-help groups, legal aid, leadership training, and safe-space dialogues that transform gender dynamics at the village level.</p>
+      <span class="service-tag">210 SHGs</span>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <span class="service-icon">🧒</span>
+      <div class="service-name">Child Protection</div>
+      <p class="service-desc">Child rights education, anti-trafficking awareness, and psychosocial support for vulnerable children in high-risk districts.</p>
+      <span class="service-tag">12 districts</span>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="impact-grid">
+    <div class="impact-text">
+      <div class="section-eyebrow reveal">Our Impact</div>
+      <h2 class="section-title reveal">Numbers That<br>Tell Real Stories</h2>
+      <p class="section-sub reveal">Behind every statistic is a family whose life has changed. Here's what 12 years of relentless ground-level work looks like in numbers and in voices.</p>
+      <div class="impact-bar-chart reveal">
+        <div class="bar-item">
+          <div class="bar-label"><span>Education Outcomes</span><span>94%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:94%"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span>Health Access Improvement</span><span>81%</span></div>
+          <div class="bar-track"><div class="bar-fill sage" style="width:81%"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span>Livelihood Income Growth</span><span>68%</span></div>
+          <div class="bar-track"><div class="bar-fill earth" style="width:68%"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="impact-stories reveal">
+      <div class="story-card">
+        <p class="story-quote">"The vocational training I received through RootBridge changed everything. I now run a small tailoring unit employing 4 women from my own village."</p>
+        <div class="story-attr">Rekha Devi — Livelihood Program, Rajasthan</div>
+      </div>
+      <div class="story-card">
+        <p class="story-quote">"I was the first in my family to pass Class 10. The learning centre teachers believed in me when no one else did. Now I'm in college."</p>
+        <div class="story-attr">Arjun Singh — Education Program, Madhya Pradesh</div>
+      </div>
+      <div class="story-card">
+        <p class="story-quote">"The mobile clinic diagnosed my father's condition early. Without RootBridge, we would never have had access to that kind of care in our village."</p>
+        <div class="story-attr">Meena Bai — Rural Health Program, Chhattisgarh</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div style="text-align:center; max-width:600px; margin:0 auto 1rem;">
+    <div class="section-eyebrow reveal" style="justify-content:center;">The People</div>
+    <h2 class="section-title reveal">Hearts Behind<br>the Mission</h2>
+    <p class="section-sub reveal" style="margin:0 auto;">Our core team combines decades of field experience with expertise in policy, health, technology, and finance.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal reveal-delay-1">
+      <div class="team-avatar">👩‍💼</div>
+      <div class="team-name">Priya Mehta</div>
+      <div class="team-role">Founder & Executive Director</div>
+      <p class="team-bio">20 years in grassroots development across India and Southeast Asia. Former IAS officer turned changemaker.</p>
+    </div>
+    <div class="team-card reveal reveal-delay-2">
+      <div class="team-avatar">👨‍⚕️</div>
+      <div class="team-name">Dr. Arun Nair</div>
+      <div class="team-role">Director, Health Programs</div>
+      <p class="team-bio">Public health physician with expertise in community medicine and last-mile health delivery systems.</p>
+    </div>
+    <div class="team-card reveal reveal-delay-3">
+      <div class="team-avatar">👩‍🏫</div>
+      <div class="team-name">Sunita Rawat</div>
+      <div class="team-role">Head of Education</div>
+      <p class="team-bio">Passionate educator who has designed curriculum for 18,000+ children across 6 states in her career.</p>
+    </div>
+    <div class="team-card reveal reveal-delay-3">
+      <div class="team-avatar">👨‍💻</div>
+      <div class="team-name">Rahul Bose</div>
+      <div class="team-role">Technology & M&E Lead</div>
+      <p class="team-bio">Data scientist applying impact measurement frameworks to drive evidence-based decision-making on the ground.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GET INVOLVED / CONTACT -->
+<section id="contact">
+  <div>
+    <div class="section-eyebrow reveal">Join Us</div>
+    <h2 class="section-title reveal">Be Part of the<br>Change</h2>
+    <p class="section-sub reveal">Whether you volunteer, donate, or partner with us — every form of support helps us reach the next family that needs it most.</p>
+    <div class="get-involved-cards">
+      <div class="involve-card reveal reveal-delay-1">
+        <span class="icon">💛</span>
+        <div>
+          <h4>Donate</h4>
+          <p>Your contribution directly funds programs, materials, and community health workers. 80G tax exemption available.</p>
+        </div>
+      </div>
+      <div class="involve-card reveal reveal-delay-2">
+        <span class="icon">🙋</span>
+        <div>
+          <h4>Volunteer</h4>
+          <p>Join weekend or long-term volunteering opportunities in education, health, and digital literacy across our project zones.</p>
+        </div>
+      </div>
+      <div class="involve-card reveal reveal-delay-3">
+        <span class="icon">🤝</span>
+        <div>
+          <h4>Corporate Partnership</h4>
+          <p>Align your CSR with proven impact programs. We offer customised engagement, co-branding, and employee volunteering.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-form reveal">
+    <h3>Send Us a Message</h3>
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" placeholder="Your name"/>
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" placeholder="your@email.com"/>
+    </div>
+    <div class="form-group">
+      <label>I want to…</label>
+      <select>
+        <option>Donate to a program</option>
+        <option>Volunteer my time</option>
+        <option>Explore CSR partnership</option>
+        <option>Get general information</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Message</label>
+      <textarea placeholder="Tell us a bit about yourself or your inquiry…"></textarea>
+    </div>
+    <button class="btn-primary form-submit" onclick="alert('Thank you! Our team will respond within 2 business days.')">Send Message</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Root<span>Bridge</span></div>
+      <p class="footer-desc">A registered NGO working across 6 states to empower underserved communities through education, health, and livelihood programs.</p>
+      <div class="footer-socials">
+        <div class="social-btn">𝕏</div>
+        <div class="social-btn">in</div>
+        <div class="social-btn">f</div>
+        <div class="social-btn">▶</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Programs</h5>
+      <ul>
+        <li><a href="#services">Education</a></li>
+        <li><a href="#services">Rural Health</a></li>
+        <li><a href="#services">Livelihood</a></li>
+        <li><a href="#services">Farming</a></li>
+        <li><a href="#services">Women Empowerment</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Organisation</h5>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#impact">Impact Reports</a></li>
+        <li><a href="#">Annual Reports</a></li>
+        <li><a href="#">Press & Media</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="#">📍 New Delhi, India</a></li>
+        <li><a href="#">📞 +91 98100 00000</a></li>
+        <li><a href="#">✉ hello@rootbridge.org</a></li>
+        <li><a href="#contact">Get Involved</a></li>
+        <li><a href="#">Donate Now</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RootBridge Foundation. All rights reserved. Reg. No. 12345/Delhi/2012</span>
+    <span>80G Certified · FCRA Registered · NGO Darpan Listed</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Nav highlight on scroll
+  const sections = document.querySelectorAll('section[id], #home');
+  const navLinks = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id; });
+    navLinks.forEach(l => {
+      l.style.color = '';
+      if (l.getAttribute('href') === '#' + cur) l.style.color = 'var(--forest)';
+    });
+  });
+</script>
+</body>
+</html>
